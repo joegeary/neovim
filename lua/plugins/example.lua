@@ -5,6 +5,15 @@
 -- * disable/enabled LazyVim plugins
 -- * override the configuration of LazyVim plugins
 return {
+  -- disable csharpier formatter
+  {
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        cs = {},
+      },
+    },
+  },
   -- close neotree after file is opened
   {
     "nvim-neo-tree/neo-tree.nvim",
@@ -49,33 +58,32 @@ return {
   },
 
   {
-    "goolord/alpha-nvim",
-    opts = {
-      section = {
-        header = {
-          val = {
-            "        	   ``                           ",
-            "       	  ```                           ",
-            "      `    ``                `           ",
-            "       ``  _ `      `       ``           ",
-            "      `   |_| `  `` ``    `  `           ",
-            "     ``  -___-_` `   `` ``   ``          ",
-            "   ``   /      )      ``      `          ",
-            "  `____/| (0) (0)_()    ``     ``        ",
-            " /|   | |   ^____)      ``      ``       ",
-            " ||   |_|    \\_//     Uɔ````   `` ``     ",
-            " ||    || |    |    ========`  ``  ``    ",
-            " ||    || |    |      ||     ``   `      ",
-            " ||     \\\\_\\   |\\     ||   ```    `      ",
-            " =========||====||    ||  ``       `     ",
-            "   || ||   \\Ɔ || \\Ɔ   ||   ``    ``      ",
-            "   || ||      ||      ||  `     ``       ",
-            " -------------------------------------   ",
-            " 	         This is fine.                ",
-          },
-        },
-      },
-    },
+    "nvimdev/dashboard-nvim",
+    opts = function(_, opts)
+      local logo = [[
+              	   ``                           
+             	  ```                             
+            `    ``                `            
+             ``  _ `      `       ``            
+            `   |_| `  `` ``    `  `            
+           ``  -___-_` `   `` ``   ``           
+         ``   /      )      ``      `           
+        `____/| (0) (0)_()    ``     ``         
+       /|   | |   ^____)      ``      ``        
+       ||   |_|    \_//     Uɔ````   `` ``      
+       ||    || |    |    ========`  ``  ``     
+       ||    || |    |      ||     ``   `       
+       ||     \\_\   |\     ||   ```    `       
+       =========||====||    ||  ``       `      
+         || ||   \Ɔ || \Ɔ   ||   ``    ``       
+         || ||      ||      ||  `     ``        
+         -------------------------------------  
+        	         This is fine.                
+      ]]
+
+      logo = string.rep("\n", 8) .. logo .. "\n\n"
+      opts.config.header = vim.split(logo, "\n")
+    end,
   },
 
   -- Use <tab> for completion and snippets (supertab)
